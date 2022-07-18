@@ -5,11 +5,13 @@ import Slider from './Slider'
 type Props = {
   label: string
   value: number
+  onIncrement: React.MouseEventHandler<HTMLButtonElement>
+  onDecrement: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const Row = ({ label, value }: Props) => (
+const Row = ({ label, value, onIncrement, onDecrement }: Props) => (
   <li className="flex">
-    <Slider value={value} />
+    <Slider value={value} onIncrement={onIncrement} onDecrement={onDecrement} />
     <Label>{label}</Label>
   </li>
 )

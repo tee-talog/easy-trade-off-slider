@@ -8,11 +8,23 @@ type Item = {
 
 type Props = {
   items: Item[]
+  onIncrementWithIndex: (
+    index: number
+  ) => React.MouseEventHandler<HTMLButtonElement>
+  onDecrementWithIndex: (
+    index: number
+  ) => React.MouseEventHandler<HTMLButtonElement>
 }
 
-const Rows = ({ items }: Props) => {
+const Rows = ({ items, onIncrementWithIndex, onDecrementWithIndex }: Props) => {
   const domItems = items.map(({ label, value }, i) => (
-    <Row key={i} label={label} value={value} />
+    <Row
+      key={i}
+      label={label}
+      value={value}
+      onIncrement={onIncrementWithIndex(i)}
+      onDecrement={onDecrementWithIndex(i)}
+    />
   ))
   return <ul>{domItems}</ul>
 }
