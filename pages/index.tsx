@@ -1,5 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Header from '../components/Header'
+import Sliders from '../components/Sliders'
 
 const Home: NextPage = () => {
   return (
@@ -10,25 +12,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>トレードオフスライダー</header>
+      <Header />
       <main>
-        <div>
-          {/* tableHeader */}
-          <ul className="flex">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-          </ul>
-
-          {/* rows */}
-          <ul>
-            <li className="flex">
-              <div>&lt;--◯--------------&gt;</div>
-              <div>スコープ</div>
-            </li>
-          </ul>
-        </div>
+        <Sliders />
       </main>
     </div>
   )
