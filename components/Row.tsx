@@ -5,8 +5,8 @@ import Slider from './Slider'
 type Props = {
   label: string
   value: number
-  onIncrement: React.MouseEventHandler<HTMLButtonElement>
-  onDecrement: React.MouseEventHandler<HTMLButtonElement>
+  onIncrement: () => void
+  onDecrement: () => void
 }
 
 const Row = ({ label, value, onIncrement, onDecrement }: Props) => (

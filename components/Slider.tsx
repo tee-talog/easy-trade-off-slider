@@ -1,5 +1,6 @@
 import React from 'react'
 
+// TODO I/F なので export すべき
 type Props = {
   value: number
   onIncrement: React.MouseEventHandler<HTMLButtonElement>

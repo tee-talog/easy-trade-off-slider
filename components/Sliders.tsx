@@ -11,32 +11,37 @@ const Sliders = () => {
 
   const headerItems = items.map((_, i) => <li key={i}>{i + 1}</li>)
 
-  const onIncrementWithIndex = (index: number) => () => {
-    if (!isValidValue(items[index].value + 1)) {
-      return
-    }
-
+  const onIncrementWithIndex = (index: number) => {
     // TODO 値の入れ替え
-    setItems(
-      items.map((e, i) => (i === index ? { ...e, value: e.value + 1 } : e))
-    )
+    setItems((items) => {
+      if (!isValidValue(items[index].value + 1)) {
+        return items
+      }
+
+      return items.map((e, i) =>
+        i === index ? { ...e, value: e.value + 1 } : e
+      )
+    })
   }
 
-  const onDecrementWithIndex = (index: number) => () => {
-    if (!isValidValue(items[index].value - 1)) {
-      return
-    }
-
+  const onDecrementWithIndex = (index: number) => {
     // TODO 値の入れ替え
-    setItems(
-      items.map((e, i) => (i === index ? { ...e, value: e.value - 1 } : e))
-    )
+    setItems((items) => {
+      if (!isValidValue(items[index].value - 1)) {
+        return items
+      }
+
+      return items.map((e, i) =>
+        i === index ? { ...e, value: e.value - 1 } : e
+      )
+    })
   }
 
   const isValidValue = (value: number) => {
     if (value >= 1 && value <= items.length) {
       return true
     }
+    return false
   }
 
   return (
