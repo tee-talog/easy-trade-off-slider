@@ -1,12 +1,8 @@
-import Label from './Label'
-import Slider from './Slider'
+import Row from './Row'
 
 const Rows = () => (
   <ul>
-    <li className="flex">
-      <Slider />
-      <Label />
-    </li>
+    <Row label={'スコープ'} value={1} />
   </ul>
 )
 
