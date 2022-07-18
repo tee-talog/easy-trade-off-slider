@@ -9,28 +9,48 @@ const useSliderItems = () => {
   ])
 
   const onIncrementWithIndex = (index: number) => {
-    // TODO 値の入れ替え
     setItems((items) => {
-      if (!isValidValue(items[index].value + 1)) {
+      const oldValue = items[index].value
+      const newValue = oldValue + 1
+
+      if (!isValidValue(newValue)) {
         return items
       }
 
-      return items.map((e, i) =>
-        i === index ? { ...e, value: e.value + 1 } : e
-      )
+      return items.map((e, i) => {
+        // 値の更新
+        if (i === index) {
+          return { ...e, value: newValue }
+        }
+        // 値の入れ替え
+        if (e.value === newValue) {
+          return { ...e, value: oldValue }
+        }
+        return e
+      })
     })
   }
 
   const onDecrementWithIndex = (index: number) => {
-    // TODO 値の入れ替え
     setItems((items) => {
-      if (!isValidValue(items[index].value - 1)) {
+      const oldValue = items[index].value
+      const newValue = oldValue - 1
+
+      if (!isValidValue(newValue)) {
         return items
       }
 
-      return items.map((e, i) =>
-        i === index ? { ...e, value: e.value - 1 } : e
-      )
+      return items.map((e, i) => {
+        // 値の更新
+        if (i === index) {
+          return { ...e, value: newValue }
+        }
+        // 値の入れ替え
+        if (e.value === newValue) {
+          return { ...e, value: oldValue }
+        }
+        return e
+      })
     })
   }
 
