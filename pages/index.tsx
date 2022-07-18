@@ -13,7 +13,21 @@ const Home: NextPage = () => {
       <header>トレードオフスライダー</header>
       <main>
         <div>
-          <div></div>
+          {/* tableHeader */}
+          <ul className="flex">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+
+          {/* rows */}
+          <ul>
+            <li className="flex">
+              <div>&lt;--◯--------------&gt;</div>
+              <div>スコープ</div>
+            </li>
+          </ul>
         </div>
       </main>
     </div>
