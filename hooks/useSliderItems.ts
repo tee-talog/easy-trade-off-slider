@@ -54,6 +54,28 @@ const useSliderItems = () => {
     })
   }
 
+  const onValueChangeWithIndex = (index: number) => (value: number) => {
+    setItems((items) => {
+      const oldValue = items[index].value
+
+      if (!isValidValue(value)) {
+        return items
+      }
+
+      return items.map((e, i) => {
+        // 値の更新
+        if (i === index) {
+          return { ...e, value }
+        }
+        // 値の入れ替え
+        if (e.value === value) {
+          return { ...e, value: oldValue }
+        }
+        return e
+      })
+    })
+  }
+
   const isValidValue = (value: number) => {
     if (value >= 1 && value <= items.length) {
       return true
@@ -65,6 +87,7 @@ const useSliderItems = () => {
     items,
     onIncrementWithIndex,
     onDecrementWithIndex,
+    onValueChangeWithIndex,
   }
 }
 

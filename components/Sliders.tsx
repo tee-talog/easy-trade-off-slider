@@ -6,7 +6,12 @@ import Rows from './Rows'
 type Props = ComponentProps<'div'>
 
 const Sliders = ({ className }: Props) => {
-  const { items, onIncrementWithIndex, onDecrementWithIndex } = useSliderItems()
+  const {
+    items,
+    onIncrementWithIndex,
+    onDecrementWithIndex,
+    onValueChangeWithIndex,
+  } = useSliderItems()
 
   const headerItems = items.map((_, i) => (
     <li key={i} className="w-full text-center">
@@ -24,6 +29,7 @@ const Sliders = ({ className }: Props) => {
         items={items}
         onIncrementWithIndex={onIncrementWithIndex}
         onDecrementWithIndex={onDecrementWithIndex}
+        onValueChangeWithIndex={onValueChangeWithIndex}
       />
     </div>
   )

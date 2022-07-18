@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { ComponentProps } from 'react'
+import React, { ComponentProps, DragEventHandler, useState } from 'react'
 
 type ButtonProps = ComponentProps<'button'>
 
@@ -36,14 +36,48 @@ type Props = ComponentProps<'div'> & {
   value: number
   onIncrement: React.MouseEventHandler<HTMLButtonElement>
   onDecrement: React.MouseEventHandler<HTMLButtonElement>
+  onValueChange: (value: number) => void
 }
 
-const Slider = ({ value, onIncrement, onDecrement, className }: Props) => {
+const Slider = ({
+  value,
+  onIncrement,
+  onDecrement,
+  onValueChange,
+  className,
+}: Props) => {
+  // TODO useState を使用してもいいのか
+  const [dragging, setDragging] = useState(false)
+  const onDragStart: DragEventHandler<HTMLSpanElement> = () => {
+    setDragging(true)
+  }
+  const onDragEnd: DragEventHandler<HTMLSpanElement> = () => {
+    setDragging(false)
+  }
+  const onDragOver: (newValue: number) => DragEventHandler<HTMLSpanElement> =
+    (newValue) => () => {
+      if (!dragging) {
+        return
+      }
+      if (value === newValue) {
+        return
+      }
+      onValueChange(newValue)
+    }
+
   const blocks = [...Array(4).keys()].map((i) => (
     <div key={i} className="w-full relative">
-      <span className="bg-neutral-300 h-1 w-full absolute top-1/2 -translate-y-1/2"></span>
+      <span
+        className="bg-neutral-300 h-1 w-full absolute top-1/2 -translate-y-1/2"
+        onDragOver={onDragOver(i + 1)}
+      ></span>
       {value === i + 1 && (
-        <span className="absolute bg-neutral-500 rounded-full h-4 w-4 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"></span>
+        <span
+          className="absolute bg-neutral-500 rounded-full h-4 w-4 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 cursor-pointer"
+          draggable="true"
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+        ></span>
       )}
     </div>
   ))
