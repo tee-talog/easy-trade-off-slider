@@ -1,3 +1,4 @@
+import React from 'react'
 import Label from './Label'
 import Slider from './Slider'
 
@@ -13,4 +14,4 @@ const Row = ({ label, value }: Props) => (
   </li>
 )
 
-export default Row
+export default React.memo(Row)

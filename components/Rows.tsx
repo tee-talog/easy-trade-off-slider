@@ -1,3 +1,4 @@
+import React from 'react'
 import Row from './Row'
 
 const Rows = () => (
@@ -6,4 +7,4 @@ const Rows = () => (
   </ul>
 )
 
-export default Rows
+export default React.memo(Rows)

@@ -1,7 +1,7 @@
-import { ComponentProps } from 'react'
+import React, { ComponentProps } from 'react'
 
 type Props = ComponentProps<'div'>
 
 const Label = ({ children }: Props) => <div>{children}</div>
 
-export default Label
+export default React.memo(Label)
