@@ -20,7 +20,7 @@ const BaseButton =
     (
       <button
         onClick={onClick}
-        className="bg-neutral-300 w-8 h-8"
+        className="bg-neutral-300 w-8 h-8 focus:bg-neutral-500 focus:outline-none"
         style={style}
       ></button>
     )
@@ -49,7 +49,7 @@ const Slider = ({ value, onIncrement, onDecrement, className }: Props) => {
   ))
 
   return (
-    <div className={clsx(className, 'flex')}>
+    <div className={clsx(className, 'flex items-center')}>
       <MemoLeftButton onClick={onDecrement} />
       <div className="flex justify-between w-full">{blocks}</div>
       <MemoRightButton onClick={onIncrement} />

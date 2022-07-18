@@ -34,7 +34,8 @@ const Rows = ({ items, onIncrementWithIndex, onDecrementWithIndex }: Props) => {
       onDecrement={memoOnDecrementWithIndex(i)}
     />
   ))
-  return <ul>{domItems}</ul>
+
+  return <ul className="flex flex-col gap-3">{domItems}</ul>
 }
 
 export default React.memo(Rows)
