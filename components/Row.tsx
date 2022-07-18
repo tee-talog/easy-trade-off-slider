@@ -10,9 +10,14 @@ type Props = {
 }
 
 const Row = ({ label, value, onIncrement, onDecrement }: Props) => (
-  <li className="flex">
-    <Slider value={value} onIncrement={onIncrement} onDecrement={onDecrement} />
-    <Label>{label}</Label>
+  <li className="flex gap-4 text-xl leading-normal">
+    <Slider
+      value={value}
+      onIncrement={onIncrement}
+      onDecrement={onDecrement}
+      className="basis-3/5"
+    />
+    <Label className="basis-2/5">{label}</Label>
   </li>
 )
 

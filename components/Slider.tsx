@@ -1,7 +1,8 @@
-import React from 'react'
+import clsx from 'clsx'
+import React, { ComponentProps } from 'react'
 
 // TODO I/F なので export すべき
-type Props = {
+type Props = ComponentProps<'div'> & {
   value: number
   onIncrement: React.MouseEventHandler<HTMLButtonElement>
   onDecrement: React.MouseEventHandler<HTMLButtonElement>

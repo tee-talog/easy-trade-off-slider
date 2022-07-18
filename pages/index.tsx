@@ -13,8 +13,8 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-      <main>
-        <Sliders />
+      <main className="px-4 my-6 flex">
+        <Sliders className="max-w-5xl container mx-auto" />
       </main>
     </div>
   )
