@@ -74,7 +74,7 @@ const Slider = ({
     }
   }
 
-  const onDragEnd = (ev: MouseEvent) => {
+  const onDragEnd = () => {
     window.removeEventListener('mouseup', onDragEnd)
     window.removeEventListener('mousemove', onMouseMove)
   }
