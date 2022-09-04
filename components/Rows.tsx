@@ -26,7 +26,9 @@ const Rows = ({
       value={value}
       onIncrement={() => onIncrementWithIndex(i)}
       onDecrement={() => onDecrementWithIndex(i)}
-      onValueChange={() => onValueChangeWithIndex(i)}
+      onValueChange={(value) => {
+        onValueChangeWithIndex(i)(value)
+      }}
     />
   ))
 
