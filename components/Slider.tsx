@@ -53,22 +53,30 @@ const Slider = ({
   className,
 }: Props) => {
   // ドラッグ処理
+  const currentValue = useRef(value)
   const onDragStart: MouseEventHandler<HTMLSpanElement> = (ev) => {
     ev.preventDefault()
 
     window.addEventListener('mouseup', onDragEnd)
+    window.addEventListener('mousemove', onMouseMove)
   }
 
-  const onDragEnd = (ev: MouseEvent) => {
-    window.removeEventListener('mouseup', onDragEnd)
-
+  const onMouseMove = (ev: MouseEvent) => {
     const mouseX = ev.clientX
     const blockPositions = refs.current
       .map((e) => e.current?.getBoundingClientRect() ?? { left: 0, right: 0 })
       .filter((e): e is { left: number; right: number } => !!e)
 
     const newValue = calcValue(mouseX, blockPositions)
-    onValueChange(newValue)
+    if (newValue !== currentValue.current) {
+      currentValue.current = newValue
+      onValueChange(newValue)
+    }
+  }
+
+  const onDragEnd = (ev: MouseEvent) => {
+    window.removeEventListener('mouseup', onDragEnd)
+    window.removeEventListener('mousemove', onMouseMove)
   }
 
   // 位置を px で受け取って、どの値になるかを計算する
