@@ -9,6 +9,11 @@ import React, {
 
 type ButtonProps = ComponentProps<'button'>
 
+type BlockPosition = {
+  left: number
+  right: number
+}
+
 // TODO SVG
 const leftButtonStyle: React.CSSProperties = {
   clipPath: 'polygon(25% 50%, 100% 0, 100% 100%)',
@@ -63,9 +68,12 @@ const Slider = ({
 
   const onMouseMove = (ev: MouseEvent) => {
     const mouseX = ev.clientX
-    const blockPositions = refs.current
-      .map((e) => e.current?.getBoundingClientRect() ?? { left: 0, right: 0 })
-      .filter((e): e is { left: number; right: number } => !!e)
+    const blockPositions: (BlockPosition | undefined)[] = refs.current.map(
+      (e) => e.current?.getBoundingClientRect()
+    )
+    if (!blockPositions.every((e): e is BlockPosition => !!e)) {
+      return
+    }
 
     const newValue = calcValue(mouseX, blockPositions)
     if (newValue !== currentValue.current) {
@@ -94,18 +102,15 @@ const Slider = ({
   }
 
   // 各ブロックの ref を格納する ref
-  const refs = useRef<RefObject<HTMLDivElement>[]>([])
-  ;[...Array(4).keys()].forEach((i) => {
-    refs.current[i] = createRef<HTMLDivElement>()
-  })
+  const refs = useRef<RefObject<HTMLDivElement>[]>(
+    Array.from({ length: 4 })
+      .fill(0)
+      .map((_, i) => createRef<HTMLDivElement>())
+  )
 
   // スライダーの値の各エリア
-  const blocks = [...Array(4).keys()].map((i) => (
-    <div
-      className="flex items-center w-full relative"
-      key={i}
-      ref={refs.current[i]}
-    >
+  const blocks = refs.current.map((ref, i) => (
+    <div className="flex items-center w-full relative" key={i} ref={ref}>
       <span className="bg-neutral-300 h-1 w-full"></span>
       {value - 1 === i && (
         <span
