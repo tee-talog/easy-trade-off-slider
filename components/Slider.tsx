@@ -43,8 +43,8 @@ const MemoLeftButton = React.memo(LeftButton)
 const RightButton = BaseButton(rightButtonStyle)
 const MemoRightButton = React.memo(RightButton)
 
-// TODO I/F なので export すべき
-type Props = ComponentProps<'div'> & {
+// I/F
+export type Props = ComponentProps<'div'> & {
   value: number
   onIncrement: React.MouseEventHandler<HTMLButtonElement>
   onDecrement: React.MouseEventHandler<HTMLButtonElement>
@@ -70,12 +70,14 @@ const Slider = ({
     window.addEventListener('mousemove', onMouseMove)
   }
 
+  // ドラッグ中にマウスを動かした時
   const onMouseMove = (ev: MouseEvent) => {
     const mouseX = ev.clientX
     const blockPositions: (BlockPosition | undefined)[] = refs.current.map(
       (e) => e.current?.getBoundingClientRect()
     )
     if (!blockPositions.every((e): e is BlockPosition => !!e)) {
+      // 正しくレンダリングされていればここにはこないはず
       return
     }
 
@@ -86,6 +88,7 @@ const Slider = ({
     }
   }
 
+  // ドラッグ終了
   const onDragEnd = () => {
     setDragging(false)
     window.removeEventListener('mouseup', onDragEnd)
@@ -101,6 +104,7 @@ const Slider = ({
       ({ left, right }) => left < mouseX && right >= mouseX
     )
     if (index === -1) {
+      // 左右にオーバーしている場合
       return blockPositions[0].left > mouseX ? 1 : blockPositions.length
     }
     return index + 1
