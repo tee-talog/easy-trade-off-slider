@@ -5,6 +5,7 @@ import React, {
   MouseEventHandler,
   RefObject,
   useRef,
+  useState,
 } from 'react'
 
 type ButtonProps = ComponentProps<'button'>
@@ -57,11 +58,14 @@ const Slider = ({
   onValueChange,
   className,
 }: Props) => {
+  const [dragging, setDragging] = useState(false)
+
   // ドラッグ処理
   const currentValue = useRef(value)
   const onDragStart: MouseEventHandler<HTMLSpanElement> = (ev) => {
     ev.preventDefault()
 
+    setDragging(true)
     window.addEventListener('mouseup', onDragEnd)
     window.addEventListener('mousemove', onMouseMove)
   }
@@ -83,6 +87,7 @@ const Slider = ({
   }
 
   const onDragEnd = () => {
+    setDragging(false)
     window.removeEventListener('mouseup', onDragEnd)
     window.removeEventListener('mousemove', onMouseMove)
   }
@@ -111,7 +116,10 @@ const Slider = ({
   // ハンドル部分
   const Handle = () => (
     <span
-      className="absolute bg-neutral-500 rounded-full h-4 w-4 left-1/2 -translate-x-1/2 cursor-pointer"
+      className={clsx(
+        dragging ? 'bg-neutral-700' : 'bg-neutral-500',
+        'absolute rounded-full h-4 w-4 left-1/2 -translate-x-1/2 cursor-pointer'
+      )}
       onMouseDown={onDragStart}
     ></span>
   )
