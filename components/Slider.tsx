@@ -108,16 +108,20 @@ const Slider = ({
       .map((_, i) => createRef<HTMLDivElement>())
   )
 
+  // ハンドル部分
+  const Handle = () => (
+    <span
+      className="absolute bg-neutral-500 rounded-full h-4 w-4 left-1/2 -translate-x-1/2 cursor-pointer"
+      onMouseDown={onDragStart}
+    ></span>
+  )
+
   // スライダーの値の各エリア
   const blocks = refs.current.map((ref, i) => (
     <div className="flex items-center w-full relative" key={i} ref={ref}>
       <span className="bg-neutral-300 h-1 w-full"></span>
-      {value - 1 === i && (
-        <span
-          className="absolute bg-neutral-500 rounded-full h-4 w-4 left-1/2 -translate-x-1/2 cursor-pointer"
-          onMouseDown={onDragStart}
-        ></span>
-      )}
+
+      {value - 1 === i && <Handle />}
     </div>
   ))
 
