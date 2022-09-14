@@ -2,7 +2,7 @@
 トレードオフスライダーです。
 
 ## URL
-https://easy-trade-off-slider.web.app/
+https://easy-trade-off-slider.tee-talog.com/
 
 ## 使い方
 各項目の優先度を決めるときに使用できます。
